@@ -4,27 +4,41 @@ var exphbs = require('express-handlebars');
 
 var app = express();
 
-var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
+var mysql = require('mysql');
+
+
+app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.get("/", function(req, res) {
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'kickstart'
+});
 
+connection.connect(function(err) {
+	if (err) throw err;
+
+	console.log("connection Id:", connection.threadId);
+})
+
+app.get("/", function(req, res) {
+	connection.query("SELECT `sample-submission`.project_id, `test`.name, `test`.country, `test`.goal, `sample-submission`.final_status, `test`.desc, test.launched_at, test.deadline FROM  `test` INNER JOIN `sample-submission` ON  `sample-submission`.project_id = `test`.`project_id` WHERE `sample-submission`.final_status LIMIT 10", function(err, data) {
+
+		if (err) throw err;
+
+		res.render('index', {test: data});
+	})
+	
 
 })
 
-app.get('/:view?', function(req, res) {
-  	console.log("view");
-  if (req.params.view) {
-    console.log('rendering view', req.params.view);
-    res.render(req.params.view);
-  } else {
-    res.render('home');
 
-  }
-});
-app.listen(function(err, data) {
+app.listen(PORT, function(err, data) {
 	console.log(PORT);
 })
 

@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>New Coders</title>
-</head>
-<body>
-<h1>New Coders</h1>
-</body>
-</html>
+<div class="jumbotron">
+	<h1 class="text-center">New Coders</h1>
+</div>
+<ul>
+	{{#each test}}
+	<li>Kickstart title: {{this.name}}</li>
+	<li>Country: {{this.country}}</li>
+	<li>Goal: ${{this.goal}}</li>
+	<li>Description: {{this.desc}}</li>
+	<li>Lauched:['FROM_UNIXTIME({{this.launched_at}})']</li>
+	<li>Deadline: FROM_UNIXTIME({{this.deadline}})</li>
+	<hr>
+	{{/each}}
+</ul>
