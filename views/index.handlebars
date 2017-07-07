@@ -1,14 +1,23 @@
 <div class="jumbotron">
-	<h1 class="text-center">New Coders</h1>
+	<h1 class="text-center">Kickstarters</h1>
+	<!-- {{#each nextTable}} -->
+	<h4 class="text-center">The average goal for a successful company is ${{this.avg}}</h4>
+<!-- {{/each}} -->
 </div>
+
 <ul>
 	{{#each test}}
-	<li>Kickstart title: {{this.name}}</li>
-	<li>Country: {{this.country}}</li>
-	<li>Goal: ${{this.goal}}</li>
-	<li>Description: {{this.desc}}</li>
-	<li>Lauched:['FROM_UNIXTIME({{this.launched_at}})']</li>
-	<li>Deadline: FROM_UNIXTIME({{this.deadline}})</li>
+	<a class="link" href=/{{this.project_id}}><div class="listBtn">
+		<li>Kickstart title: {{this.name}}</li>
+		<li>Country: {{this.country}}</li>
+		<li>Goal: ${{this.goal}}</li>
+		<li>Description: {{this.desc}}</li>
+		<li>Lauched: {{this.launched_at}}</li>
+		<li>Deadline: {{this.deadline}}</li>
+	</div></a>
+
+	<a href="/edit/{{this.project_id}}"><p>edit</p></a>
 	<hr>
 	{{/each}}
 </ul>
+

@@ -1,0 +1,24 @@
+<div class="jumbotron">
+	<h1 class="text-center">Kickstarters</h1>
+
+
+</div>
+
+<ul>
+	{{#each test}}
+
+	<!-- <a class="link" href=/{{this.project_id}}><div class="listBtn"> -->
+	<form method="post" action="/edit/{{this.id}}">
+		<input type="hidden" name="{{this.id}}">
+		<li>Kickstart title: <input type="text" name="name" value="{{this.name}}"></li>
+		<li>Country: {{this.country}}</li>
+		<li>Goal: <input type="text" name="goal" value="{{this.goal}}"></li>
+		<li>Description: <input type="textarea" name="desc" value="{{this.desc}}"></li>
+		<li>Lauched: {{this.launched_at}}</li>
+		<li>Deadline: {{this.deadline}}</li>
+	<!-- </div></a> -->
+	
+	<button type="submit">Save</button>
+	<hr>
+	{{/each}}
+</ul>
