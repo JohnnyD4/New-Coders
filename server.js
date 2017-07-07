@@ -4,7 +4,7 @@ var exphbs = require('express-handlebars');
 
 var app = express();
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 var mysql = require('mysql');
 
@@ -20,12 +20,17 @@ var connection = mysql.createConnection({
 	database: 'kickstart'
 });
 
-connection.connect(function(err) {
-	if (err) throw err;
+if (process.env.JAWSDB_URL) {
+	connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
 
-	console.log("connection Id:", connection.threadId);
-})
+}
+	connection.connect(function(err) {
+		if (err) throw err;
 
+		console.log("connection Id:", connection.threadId);
+	})
+}
 app.get("/", function(req, res) {
 
 	// connection.query("SELECT ")
